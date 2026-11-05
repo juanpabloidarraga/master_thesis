@@ -101,17 +101,17 @@ def add_unified_temperature(
 ) -> pd.DataFrame:
     """Add a unified effective temperature column to the dataframe."""
     # create new columns for effective temperature and its source
-    df["teff"] = np.nan
+    df["Teff"] = np.nan
     df["teff_source"] = ""
 
     # fill effective temperature and source for GALAH
-    df.loc[masks["galah"], "teff"] = pd.to_numeric(
+    df.loc[masks["galah"], "Teff"] = pd.to_numeric(
         df.loc[masks["galah"], "teff"], errors="coerce"
     )
     df.loc[masks["galah"], "teff_source"] = "GALAH"
 
     # fill effective temperature and source for LAMOST
-    df.loc[masks["lamost"], "teff"] = pd.to_numeric(
+    df.loc[masks["lamost"], "Teff"] = pd.to_numeric(
         df.loc[masks["lamost"], "Teff_lamost"], errors="coerce"
     )
     df.loc[masks["lamost"], "teff_source"] = "LAMOST"
