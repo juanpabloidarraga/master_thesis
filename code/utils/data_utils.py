@@ -38,10 +38,15 @@ def build_masks(df: pd.DataFrame) -> dict[str, pd.Series]:
             20
         ), 
 
-        #Create masks for Willet data
+        #Create masks for Willet data !This classificationo is horrible but works
         "k2": df["K2_campaign"].between(1, 199),
         "kepler": df["K2_campaign"].eq(0),
         "tess": df["K2_campaign"].gt(200),
+
+        #Special mask to select the stars in the willet catalog with original GALAH or APOGEE data
+        #classification based on the fact that ASPCAP is NaN for non APOGEE stars
+        "ori_galah": df["ASPCAP_ID"].isna(),
+        "ori_apogee": ~(df["ASPCAP_ID"].isna()),
 
         # Definition of what is good or bad taken from Willet et al 2024
         #TODO define "goodK2_mask", "goodKepler_mask", "goodTESS_mask"
